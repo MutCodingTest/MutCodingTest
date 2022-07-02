@@ -1,5 +1,6 @@
 import sys
 sys.setrecursionlimit(5000)
+input = sys.stdin.readline
 
 n,m = map(int,input().split())
 graph=[[] for i in range(n+1)]
