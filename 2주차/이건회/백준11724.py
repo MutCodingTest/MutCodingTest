@@ -1,32 +1,24 @@
-n,m=map(int,input().split())
-parent=[0] * (n+1)
-graphs=[]
+import sys
+sys.setrecursionlimit(5000)
 
-for i in range(1,n+1):
-  parent[i]=i
+n,m = map(int,input().split())
+graph=[[] for i in range(n+1)]
+visited=[False]*(n+1)
 
 for _ in range(m):
-  u,v=map(int,input().split())
-  graphs.append((u,v))
+  a,b=map(int,input().split())
+  graph[a].append(b)
+  graph[b].append(a)
 
-def find_parent(parent,x):
-  if parent[x] != x:
-    parent[x]=find_parent(parent,parent[x])
-  return parent[x]
+def dfs(graph,v):
+  visited[v]=True
+  for i in graph[v]:
+    if visited[i] != True:
+      dfs(graph,i)
 
-def union_parent(parent,a,b):
-  a= find_parent(parent,a)
-  b= find_parent(parent,b)
-  if a<b:
-    parent[b]=a
-  else:
-    parent[a]=b
-
-for graph in graphs:
-  a,b=graph
-  if find_parent(parent,a) != find_parent(parent,b):
-    union_parent(parent,a,b)
-
-parent_set=set(parent[1:])
-parent_list=list(parent_set)
-print(len(parent_list))
+cnt=0
+for i in range(1,n+1):
+  if not visited[i]:
+    dfs(graph,i)
+    cnt+=1
+print(cnt)
