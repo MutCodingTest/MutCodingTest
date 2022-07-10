@@ -1,4 +1,4 @@
-# DP
+# 카드 구매하기/DP
 
 n = int(input())
 p = [0] + list(map(int,input().split()))
